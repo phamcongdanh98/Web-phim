@@ -46,9 +46,14 @@ export function EpisodeManager({ movieId, isSeries, episodes }: { movieId: strin
         <p className="text-sm text-muted-foreground">
           {isSeries ? "Phim bộ: mỗi tập là một file video trên Drive." : "Phim lẻ: chỉ có 1 file video."}
         </p>
-        <Button asChild>
-          <Link href={`/admin/drive?movieId=${movieId}`}>Thêm file từ Google Drive</Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button asChild variant="outline">
+            <Link href={`/admin/upload?movieId=${movieId}`}>Tải lên file mới</Link>
+          </Button>
+          <Button asChild>
+            <Link href={`/admin/drive?movieId=${movieId}`}>Thêm file từ Google Drive</Link>
+          </Button>
+        </div>
       </div>
       {error && <Alert tone="error">{error}</Alert>}
       {episodes.map((ep) => (

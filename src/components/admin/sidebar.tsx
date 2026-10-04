@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Clapperboard, HardDrive, LayoutDashboard, ScrollText, Settings, Tags, Users, ArrowLeft } from "lucide-react";
+import { Clapperboard, HardDrive, LayoutDashboard, ScrollText, Settings, Tags, Users, ArrowLeft, UploadCloud } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
 const ITEMS = [
@@ -10,6 +10,7 @@ const ITEMS = [
   { href: "/admin/movies", label: "Phim", icon: Clapperboard },
   { href: "/admin/genres", label: "Thể loại", icon: Tags },
   { href: "/admin/drive", label: "Google Drive", icon: HardDrive },
+  { href: "/admin/upload", label: "Tải lên", icon: UploadCloud },
   { href: "/admin/users", label: "Người dùng", icon: Users },
   { href: "/admin/logs", label: "Nhật ký", icon: ScrollText },
   { href: "/admin/settings", label: "Cài đặt", icon: Settings },
