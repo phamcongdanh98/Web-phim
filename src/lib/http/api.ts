@@ -2,6 +2,7 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { errorResponse } from "@/lib/http/errors";
+import { assertSameOrigin } from "@/lib/http/origin";
 import { logger } from "@/lib/logger";
 
 /** Wraps a route handler: request id, structured log line, centralised error mapping. */
@@ -12,6 +13,7 @@ export function api<Args extends unknown[]>(
   return async (request: Request, ...args: Args): Promise<Response> => {
     const requestId = randomUUID();
     try {
+      assertSameOrigin(request);
       const res = await handler(request, requestId, ...args);
       res.headers.set("X-Request-Id", requestId);
       return res;
