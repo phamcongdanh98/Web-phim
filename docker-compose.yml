@@ -1,0 +1,28 @@
+# Usage:  cp .env.example .env  (fill in)  &&  docker compose up -d --build
+# Secrets come from .env at RUNTIME (env_file); they are not copied into the image.
+services:
+  web:
+    build:
+      context: .
+      args:
+        # Public values only (inlined into the browser bundle by design).
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    image: phim-web:latest
+    env_file: .env
+    restart: unless-stopped
+    # Only reachable through Nginx on the same host (HTTPS terminates there).
+    ports:
+      - "127.0.0.1:3000:3000"
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
